@@ -103,7 +103,7 @@ def cut(x: np.ndarray, alpha: float=.95, l0: float=3) -> np.ndarray:
     P = (1-special.betainc(delta*nu,delta,beta_x))**eta
     
     # perform recursive cutting
-    cut_idx = st_idx + min_size
+    cut_idx = int(st_idx + min_size)
     cut_decision = P >= alpha
     if cut_decision:
         splits = np.append(splits, [cut_idx])
@@ -200,4 +200,4 @@ def segment_clustering(x: np.ndarray, s: np.ndarray,
     if feature_scaler is not None:
         f_seg = feature_scaler.fit_transform(f_seg)
     kmeans = KMeans(n_clusters=n_clusters, random_state=random_state, **kmeans_kwarg_dict).fit(f_seg)
-    return kmeans.labels_
+    return np.asarray(kmeans.labels_)
