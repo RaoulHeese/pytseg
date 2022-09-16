@@ -2,13 +2,13 @@
 Time series segmentation toolbox (pytseq)
 *****************************************
 
-.. image:: https://github.com/RaoulHeese/pytseq/actions/workflows/tests.yml/badge.svg 
-    :target: https://github.com/RaoulHeese/pytseq/actions/workflows/tests.yml
+.. image:: https://github.com/RaoulHeese/pytseg/actions/workflows/tests.yml/badge.svg
+    :target: https://github.com/RaoulHeese/pytseg/actions/workflows/tests.yml
     :alt: GitHub Actions
 	
 .. image:: https://readthedocs.org/projects/pytseq/badge/?version=latest
     :target: https://pytseq.readthedocs.io/en/latest/?badge=latest
-    :alt: Documentation Status	
+    :alt: Documentation	
 	
 .. image:: https://img.shields.io/badge/license-MIT-lightgrey
     :target: https://github.com/RaoulHeese/pytseq/blob/main/LICENSE
@@ -16,12 +16,12 @@ Time series segmentation toolbox (pytseq)
 	
 Tiny toolbox for time series segmentation.
 
-The toolbox presumes a (univariate or multivariate) time series, for example:
+The toolbox presumes a (univariate or multivariate) time series. For example, consider the following univariate time series:
 
 .. image:: https://github.com/RaoulHeese/pytseg/blob/main/docs/source/_static/plot1.png 
    :scale: 100 %
 
-Such a time series can then be segmented into distinguishable segments:
+Such a time series can then be segmented into distinguishable segments using the toolbox:
 
 .. image:: https://github.com/RaoulHeese/pytseg/blob/main/docs/source/_static/plot2.png
    :scale: 100 %
@@ -33,7 +33,17 @@ All segments are marked in different colors in the plot. And, finally, these seg
    
 Green lines indicate stationary segments of the time series.
 
+**Installation**
+
+Install the package via pip or clone this repository. To use pip, type:
+
+.. code-block:: sh
+
+  $ pip install pytseg
+
 **Usage**
+
+Documentation: `<https://pytseg.readthedocs.io/en/latest/>`_.
 
 Demo notebooks can be found in the `demos/` directory of this repository.
 
