@@ -1,5 +1,5 @@
 *****************************************
-Time series segmentation toolbox (pytseq)
+Time series segmentation toolbox (pytseg)
 *****************************************
 
 .. image:: https://github.com/RaoulHeese/pytseg/actions/workflows/tests.yml/badge.svg
@@ -10,10 +10,14 @@ Time series segmentation toolbox (pytseq)
     :target: https://pytseg.readthedocs.io/en/latest/?badge=latest
     :alt: Documentation Status	
 	
+.. image:: https://img.shields.io/pypi/pyversions/pytseg
+    :target: https://pypi.org/project/pytseg/
+    :alt: PyPI Versions
+	
 .. image:: https://img.shields.io/badge/license-MIT-lightgrey
     :target: https://github.com/RaoulHeese/pytseg/blob/main/LICENSE
     :alt: MIT License	
-	
+
 Tiny toolbox for time series segmentation.
 
 The toolbox presumes a (univariate or multivariate) time series. For example, consider the following univariate time series:
@@ -50,13 +54,13 @@ If you find this code useful in your research, please consider citing:
 
 .. code-block:: tex
 
-  @misc{pytseq2022,
+  @misc{pytseg2022,
         author = {Raoul Heese},
-        title = {pytseq},
+        title = {pytseg},
         year = {2022},
         publisher = {GitHub},
         journal = {{GitHub} repository},
-        howpublished = {\url{https://github.com/RaoulHeese/pytseq}},
+        howpublished = {\url{https://github.com/RaoulHeese/pytseg}},
        }
 
 The implemented univariate time series segmentation closely follows:
