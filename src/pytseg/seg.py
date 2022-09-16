@@ -4,7 +4,7 @@ from scipy import special
 from sklearn.cluster import KMeans
 from sklearn.preprocessing import MinMaxScaler, StandardScaler
 from sklearn.base import TransformerMixin
-from typing import List, Tuple, Union, Callable
+from typing import List, Tuple, Union, Callable, Any
 
 def normalize(x: np.ndarray, t: Union[np.ndarray,None],
               scaler: TransformerMixin=MinMaxScaler()) -> Tuple[np.ndarray, np.ndarray]:  
@@ -131,7 +131,8 @@ def segmentize(a: np.ndarray, s: np.ndarray) -> List[np.ndarray]:
         List of array segments.
     """
     
-    steps: np.ndarray = np.concatenate(([0], s, [a.size]))
+    concat: Any = ([0], s, [a.size])
+    steps: np.ndarray = np.concatenate(concat)
     a_seg = [a[steps[idx]:steps[idx+1]] for idx in range(len(steps)-1)]
     return a_seg
         
