@@ -26,14 +26,16 @@ Such a time series can then be segmented into distinguishable segments:
 .. image:: https://github.com/RaoulHeese/pytseg/blob/main/docs/source/_static/plot2.png
    :scale: 100 %
 
-And, finally, these segments can be assigned labels like stationarity:
+All segments are marked in different colors in the plot. And, finally, these segments can be assigned labels like stationarity:
 
 .. image:: https://github.com/RaoulHeese/pytseg/blob/main/docs/source/_static/plot3.png
    :scale: 100 %
+   
+Green lines indicate stationary segments of the time series.
 
 **Usage**
 
-Demo notebooks can be found in the "examples/" directory of this repository.
+Demo notebooks can be found in the `demos/` directory of this repository.
 
 📖 **Citation**
 
