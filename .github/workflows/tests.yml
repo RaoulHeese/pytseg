@@ -23,4 +23,4 @@ jobs:
           if [ -f docs/requirements.txt ]; then pip install -r docs/requirements.txt; fi
       - name: Test with pytest
         run: |
-          pytest
+          pytest --mypy
