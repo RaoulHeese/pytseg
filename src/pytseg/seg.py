@@ -40,7 +40,7 @@ def normalize(x: np.ndarray, t: Union[np.ndarray,None],
     if np.any(np.diff(t)!=np.diff(t)[0]):
         t_tf = np.linspace(np.min(t), np.max(t), t.size)
         x_tf = np.interp(t, t_tf, x)
-        x, t = x_tf, t_tf
+        x, t = np.asarray(x_tf), np.asarray(t_tf)
     
     # rescale
     x = scaler.fit_transform(x.reshape(-1,1)).ravel()
@@ -131,7 +131,7 @@ def segmentize(a: np.ndarray, s: np.ndarray) -> List[np.ndarray]:
         List of array segments.
     """
     
-    steps = np.concatenate(([0], s, [a.size]))
+    steps: np.ndarray = np.concatenate(([0], s, [a.size]))
     a_seg = [a[steps[idx]:steps[idx+1]] for idx in range(len(steps)-1)]
     return a_seg
         

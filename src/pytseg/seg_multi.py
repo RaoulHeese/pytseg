@@ -40,7 +40,7 @@ def normalize_multi(X: np.ndarray, t: Union[np.ndarray,None],
     if np.any(np.diff(t)!=np.diff(t)[0]):
         t_tf = np.linspace(np.min(t), np.max(t), t.size)
         X_tf = np.array([np.interp(t, t_tf, x.T) for x in X.T])
-        X, t = X_tf, t_tf
+        X, t = np.asarray(X_tf), np.asarray(t_tf)
     
     # rescale
     X = scaler.fit_transform(X)
