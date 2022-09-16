@@ -1,0 +1,226 @@
+
+
+<!doctype html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>pytseg.plot &#8212; pytseg  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/bizstyle.css" />
+    
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/bizstyle.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <!--[if lt IE 9]>
+    <script src="_static/css3-mediaqueries.js"></script>
+    <![endif]-->
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">pytseg  documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Module code</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">pytseg.plot</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for pytseg.plot</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;Plotting helper functions.&quot;&quot;&quot;</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">cm</span>
+<span class="kn">from</span> <span class="nn">pytseg.seg</span> <span class="kn">import</span> <span class="n">segmentize</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Union</span>
+
+<div class="viewcode-block" id="plot"><a class="viewcode-back" href="../../pytseg.html#pytseg.plot.plot">[docs]</a><span class="k">def</span> <span class="nf">plot</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+         <span class="n">s</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span><span class="kc">None</span><span class="p">]</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+         <span class="n">t</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span><span class="kc">None</span><span class="p">]</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+         <span class="n">l</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span><span class="kc">None</span><span class="p">]</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+         <span class="n">cmap</span><span class="p">:</span> <span class="nb">str</span><span class="o">=</span><span class="s1">&#39;brg&#39;</span><span class="p">,</span>
+         <span class="n">figure_kwarg_dict</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span><span class="p">{},</span> <span class="n">plot_kwarg_dict</span><span class="p">:</span> <span class="nb">dict</span><span class="o">=</span><span class="p">{},</span>
+         <span class="n">new_fig_</span><span class="p">:</span> <span class="nb">bool</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">show_legend_</span><span class="p">:</span> <span class="nb">bool</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">show_fig_</span><span class="p">:</span> <span class="nb">bool</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Plot univariate time series.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    x : np.ndarray</span>
+<span class="sd">        Time series observations.</span>
+<span class="sd">    s : Union[np.ndarray,None], optional</span>
+<span class="sd">        Array of segment indices for ``x`` (from ``seg.cut``). If set to</span>
+<span class="sd">        ``None``, no segments are considered. The default is ``None``.</span>
+<span class="sd">    t : Union[np.ndarray,None], optional</span>
+<span class="sd">        Time series time steps for each observation. If set </span>
+<span class="sd">        to ``None``, the default ``t = np.arange(x.size)`` is considered. The </span>
+<span class="sd">        default is ``None``.</span>
+<span class="sd">    l : Union[np.ndarray,None], optional</span>
+<span class="sd">        Array of labels for each segment in ``s``. If set to ``None``, no </span>
+<span class="sd">        labels are considered. The default is ``None``.</span>
+<span class="sd">    cmap : str, optional</span>
+<span class="sd">        Color map name for plotting different segments. The default is </span>
+<span class="sd">        ``&#39;brg&#39;``.</span>
+<span class="sd">    figure_kwarg_dict : dict, optional</span>
+<span class="sd">        Additional keyword arguments for the figure. The default is ``{}``.</span>
+<span class="sd">    plot_kwarg_dict : dict, optional</span>
+<span class="sd">        Additional keyword arguments for the plots. The default is ``{}``.</span>
+<span class="sd">    new_fig_ : bool, optional</span>
+<span class="sd">        Create new figure. Inteded for internal use. The default is ``True``.</span>
+<span class="sd">    show_legend_ : bool, optional</span>
+<span class="sd">        Show legend. Inteded for internal use. The default is ``False``.</span>
+<span class="sd">    show_fig_ : bool, optional</span>
+<span class="sd">        Show figure. Inteded for internal use. The default is ``True``.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    None.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    
+    <span class="c1"># preprocess</span>
+    <span class="k">if</span> <span class="n">t</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">size</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">l</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">assert</span> <span class="n">s</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+        <span class="n">num_labels</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">l</span><span class="p">)</span><span class="o">.</span><span class="n">size</span>
+        <span class="n">cmap</span> <span class="o">=</span> <span class="n">cm</span><span class="o">.</span><span class="n">get_cmap</span><span class="p">(</span><span class="n">cmap</span><span class="p">)</span>
+        <span class="n">c</span> <span class="o">=</span> <span class="p">{</span><span class="n">l_</span><span class="p">:</span> <span class="n">cmap</span><span class="p">(</span><span class="n">l_</span><span class="o">/</span><span class="p">(</span><span class="n">num_labels</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span> <span class="k">for</span> <span class="n">l_</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">l</span><span class="p">)}</span>
+
+    <span class="c1"># plot</span>
+    <span class="k">if</span> <span class="n">new_fig_</span><span class="p">:</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="o">**</span><span class="n">figure_kwarg_dict</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">s</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span> <span class="c1"># segmentized</span>
+        <span class="n">x_seg</span> <span class="o">=</span> <span class="n">segmentize</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">s</span><span class="p">)</span>
+        <span class="n">t_seg</span> <span class="o">=</span> <span class="n">segmentize</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">s</span><span class="p">)</span>
+    
+        <span class="c1"># plot segments</span>
+        <span class="k">for</span> <span class="n">idx</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">x_seg</span><span class="p">)):</span>
+            <span class="n">x_</span> <span class="o">=</span> <span class="n">x_seg</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span>
+            <span class="n">t_</span> <span class="o">=</span> <span class="n">t_seg</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">idx</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="n">x_seg</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+                <span class="n">x_</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">x_</span><span class="p">,</span> <span class="n">x_seg</span><span class="p">[</span><span class="n">idx</span><span class="o">+</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
+                <span class="n">t_</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">t_</span><span class="p">,</span> <span class="n">t_seg</span><span class="p">[</span><span class="n">idx</span><span class="o">+</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
+            <span class="k">if</span> <span class="n">l</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">l_</span> <span class="o">=</span> <span class="n">l</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span>
+                <span class="n">c_</span> <span class="o">=</span> <span class="n">c</span><span class="p">[</span><span class="n">l_</span><span class="p">]</span>
+                <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t_</span><span class="p">,</span> <span class="n">x_</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="n">c_</span><span class="p">,</span> <span class="o">**</span><span class="n">plot_kwarg_dict</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t_</span><span class="p">,</span> <span class="n">x_</span><span class="p">,</span> <span class="o">**</span><span class="n">plot_kwarg_dict</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span> <span class="c1"># not segmentized</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="o">**</span><span class="n">plot_kwarg_dict</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">show_legend_</span><span class="p">:</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">show_fig_</span><span class="p">:</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;t&#39;</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;x(t)&#39;</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span></div>
+    
+<div class="viewcode-block" id="plot_multi"><a class="viewcode-back" href="../../pytseg.html#pytseg.plot.plot_multi">[docs]</a><span class="k">def</span> <span class="nf">plot_multi</span><span class="p">(</span><span class="n">X</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+               <span class="n">S</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">list</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">],</span><span class="kc">None</span><span class="p">]</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+               <span class="n">t</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span><span class="kc">None</span><span class="p">]</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+               <span class="n">L</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">list</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">],</span><span class="kc">None</span><span class="p">]</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+               <span class="n">cmap</span><span class="p">:</span> <span class="nb">str</span><span class="o">=</span><span class="s1">&#39;brg&#39;</span><span class="p">,</span> <span class="n">figure_kwarg_dict</span><span class="p">:</span> <span class="nb">dict</span><span class="o">=</span><span class="p">{},</span> <span class="n">plot_kwarg_dict</span><span class="p">:</span> <span class="nb">dict</span><span class="o">=</span><span class="p">{},</span>
+               <span class="n">label</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span><span class="kc">None</span><span class="p">]</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Plot multivariate time series.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    X : np.ndarray</span>
+<span class="sd">        Time series observations.</span>
+<span class="sd">    S : Union[list[np.ndarray],None], optional</span>
+<span class="sd">        List of segment index arrays for ``X`` (from ``seg_multi.cut_multi``). </span>
+<span class="sd">        If set to ``None``, no segments are considered. The default is </span>
+<span class="sd">        ``None``.</span>
+<span class="sd">    t : Union[np.ndarray,None], optional</span>
+<span class="sd">        Time series time steps for each observation. If set to ``None``, the </span>
+<span class="sd">        default in ``plot`` is considered. The default is ``None``.</span>
+<span class="sd">    L : Union[list[np.ndarray],None], optional</span>
+<span class="sd">        List of label arrays for each segment in ``S``. If set to ``None``, no </span>
+<span class="sd">        labels are considered. The default is ``None``.</span>
+<span class="sd">    cmap : str, optional</span>
+<span class="sd">        Color map name for plotting different segments. The default is </span>
+<span class="sd">        ``&#39;brg&#39;``.</span>
+<span class="sd">    figure_kwarg_dict : dict, optional</span>
+<span class="sd">        Additional keyword arguments for the figure. The default is ``{}``.</span>
+<span class="sd">    plot_kwarg_dict : dict, optional</span>
+<span class="sd">        Additional keyword arguments for the plots. The default is ``{}``.</span>
+<span class="sd">    label : Union[str,None], optional</span>
+<span class="sd">        Label prefix for legend. If set to ``None``, no legend is shown. The </span>
+<span class="sd">        default is ``None``.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    None.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">S</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">S</span> <span class="o">=</span> <span class="p">[</span><span class="kc">None</span><span class="p">]</span><span class="o">*</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">L</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">L</span> <span class="o">=</span> <span class="p">[</span><span class="kc">None</span><span class="p">]</span><span class="o">*</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> 
+    <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">l</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">S</span><span class="p">,</span> <span class="n">L</span><span class="p">)):</span>
+        <span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="n">s</span><span class="p">,</span> <span class="n">t</span><span class="o">=</span><span class="n">t</span><span class="p">,</span> <span class="n">l</span><span class="o">=</span><span class="n">l</span><span class="p">,</span> 
+             <span class="n">cmap</span><span class="o">=</span><span class="n">cmap</span><span class="p">,</span>
+             <span class="n">figure_kwarg_dict</span><span class="o">=</span><span class="n">figure_kwarg_dict</span><span class="p">,</span>
+             <span class="n">plot_kwarg_dict</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">label</span><span class="si">}{</span><span class="n">idx</span><span class="si">}</span><span class="s1">&#39;</span> <span class="k">if</span> <span class="n">label</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">plot_kwarg_dict</span><span class="p">),</span>
+             <span class="n">new_fig_</span><span class="o">=</span><span class="n">idx</span><span class="o">==</span><span class="mi">0</span><span class="p">,</span> <span class="n">show_legend_</span><span class="o">=</span><span class="n">idx</span><span class="o">==</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="mi">1</span> <span class="k">if</span> <span class="n">label</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="kc">False</span><span class="p">,</span>
+             <span class="n">show_fig_</span><span class="o">=</span><span class="n">idx</span><span class="o">==</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span></div>
+        
+</pre></div>
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">pytseg  documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >Module code</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">pytseg.plot</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2022, Raoul Heese.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
+    </div>
+  </body>
+</html>
