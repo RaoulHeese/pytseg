@@ -10,9 +10,9 @@ Time series segmentation toolbox (pytseg)
     :target: https://pytseg.readthedocs.io/en/latest/?badge=latest
     :alt: Documentation Status	
 	
-.. image:: https://img.shields.io/pypi/pyversions/pytseg
+.. image:: https://img.shields.io/pypi/v/pytseg
     :target: https://pypi.org/project/pytseg/
-    :alt: PyPI Versions
+    :alt: PyPI - Project
 	
 .. image:: https://img.shields.io/badge/license-MIT-lightgrey
     :target: https://github.com/RaoulHeese/pytseg/blob/main/LICENSE
@@ -23,19 +23,19 @@ Tiny toolbox for time series segmentation.
 The toolbox presumes a (univariate or multivariate) time series. For example, consider the following univariate time series:
 
 .. image:: https://raw.githubusercontent.com/RaoulHeese/pytseg/main/docs/source/_static/plot1.png
-    :target: https://github.com/RaoulHeese/pytseg/blob/main/docs/source/_static/plot1.png 
+    :target: https://github.com/RaoulHeese/pytseg/blob/main/demos/demo-1.ipynb
     :alt: plot1
 
 Such a time series can then be segmented into distinguishable segments using the toolbox:
 
 .. image:: https://raw.githubusercontent.com/RaoulHeese/pytseg/main/docs/source/_static/plot2.png
-    :target: https://github.com/RaoulHeese/pytseg/blob/main/docs/source/_static/plot2.png 
+    :target: https://github.com/RaoulHeese/pytseg/blob/main/demos/demo-1.ipynb
     :alt: plot2
 
 All segments are marked in different colors in the plot. And, finally, these segments can be assigned labels like stationarity:
 
 .. image:: https://raw.githubusercontent.com/RaoulHeese/pytseg/main/docs/source/_static/plot3.png
-    :target: https://github.com/RaoulHeese/pytseg/blob/main/docs/source/_static/plot3.png 
+    :target: https://github.com/RaoulHeese/pytseg/blob/main/demos/demo-1.ipynb
     :alt: plot3
    
 Green lines indicate stationary segments of the time series.
