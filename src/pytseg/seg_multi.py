@@ -2,8 +2,8 @@
 import numpy as np
 from sklearn.preprocessing import MinMaxScaler
 from sklearn.base import TransformerMixin
-from pytseg.seg import cut, segmentize, segment_stationarity
 from typing import Tuple, Union, Callable
+from pytseg.seg import cut, segmentize, segment_stationarity
 
 def normalize_multi(X: np.ndarray, t: Union[np.ndarray,None],
                     scaler: TransformerMixin=MinMaxScaler()) -> Tuple[np.ndarray, np.ndarray]:      

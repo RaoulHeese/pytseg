@@ -2,8 +2,8 @@
 import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib import cm
-from pytseg.seg import segmentize
 from typing import Union, Any
+from pytseg.seg import segmentize
 
 def plot(x: np.ndarray,
          s: Union[np.ndarray,None]=None,
