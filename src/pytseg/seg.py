@@ -4,7 +4,7 @@ from scipy import special
 from sklearn.cluster import KMeans
 from sklearn.preprocessing import MinMaxScaler, StandardScaler
 from sklearn.base import TransformerMixin
-from typing import Tuple, Union, Callable
+from typing import List, Tuple, Union, Callable
 
 def normalize(x: np.ndarray, t: Union[np.ndarray,None],
               scaler: TransformerMixin=MinMaxScaler()) -> Tuple[np.ndarray, np.ndarray]:  
@@ -114,7 +114,7 @@ def cut(x: np.ndarray, alpha: float=.95, l0: float=3) -> np.ndarray:
     s = np.sort(splits)
     return s
 
-def segmentize(a: np.ndarray, s: np.ndarray) -> list[np.ndarray]:
+def segmentize(a: np.ndarray, s: np.ndarray) -> List[np.ndarray]:
     """
     Get list of array segments from segment indices.
 
@@ -165,7 +165,7 @@ def segment_stationarity(x: np.ndarray, s: np.ndarray, threshold: float=.01) -> 
 def segment_clustering(x: np.ndarray, s: np.ndarray,
                        n_clusters: int=2, random_state: Union[int,np.random.mtrand.RandomState]=0,
                        kmeans_kwarg_dict: dict={},
-                       feature_maps: list[Callable[[np.ndarray], float]]=[np.mean, np.std],
+                       feature_maps: List[Callable[[np.ndarray], float]]=[np.mean, np.std],
                        feature_scaler: TransformerMixin=StandardScaler()) -> np.ndarray:
     """
     Perform clustization for a segmented univariate time series using 
@@ -183,7 +183,7 @@ def segment_clustering(x: np.ndarray, s: np.ndarray,
         Random seed (or state) of the clustering algorithm. The default is 0.
     kmeans_kwarg_dict : dict, optional
         Optional keyword arguments for ``KMeans``. The default is ``{}``.
-    feature_maps : list[Callable[[np.ndarray], float]], optional
+    feature_maps : List[Callable[[np.ndarray], float]], optional
         Feature maps: each segment is mapped to a float. The default is 
         ``[np.mean, np.std]``.
     feature_scaler : sklearn.base.TransformerMixin, optional

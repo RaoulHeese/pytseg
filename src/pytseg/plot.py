@@ -2,7 +2,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib import cm
-from typing import Union, Any
+from typing import List, Union, Any
 from pytseg.seg import segmentize
 
 def plot(x: np.ndarray,
@@ -87,9 +87,9 @@ def plot(x: np.ndarray,
         plt.show()
     
 def plot_multi(X: np.ndarray,
-               S: Union[list[np.ndarray],None]=None,
+               S: Union[List[np.ndarray],None]=None,
                t: Union[np.ndarray,None]=None,
-               L: Union[list[np.ndarray],None]=None,
+               L: Union[List[np.ndarray],None]=None,
                cmap: str='brg', figure_kwarg_dict: dict={}, plot_kwarg_dict: dict={},
                label: Union[str,None]=None) -> None:
     """
@@ -99,14 +99,14 @@ def plot_multi(X: np.ndarray,
     ----------
     X : np.ndarray
         Time series observations.
-    S : Union[list[np.ndarray],None], optional
+    S : Union[List[np.ndarray],None], optional
         List of segment index arrays for ``X`` (from ``seg_multi.cut_multi``). 
         If set to ``None``, no segments are considered. The default is 
         ``None``.
     t : Union[np.ndarray,None], optional
         Time series time steps for each observation. If set to ``None``, the 
         default in ``plot`` is considered. The default is ``None``.
-    L : Union[list[np.ndarray],None], optional
+    L : Union[List[np.ndarray],None], optional
         List of label arrays for each segment in ``S``. If set to ``None``, no 
         labels are considered. The default is ``None``.
     cmap : str, optional
@@ -125,11 +125,11 @@ def plot_multi(X: np.ndarray,
     None.
     """
     if S is None:
-        S_: list[Any] = [None]*X.shape[0]
+        S_: List[Any] = [None]*X.shape[0]
     else:
         S_ = S.copy()
     if L is None:
-        L_: list[Any] = [None]*X.shape[0] 
+        L_: List[Any] = [None]*X.shape[0] 
     else:
         L_ = L.copy()
     for idx, (x, s, l) in enumerate(zip(X.T, S_, L_)):

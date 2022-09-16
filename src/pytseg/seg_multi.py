@@ -2,7 +2,7 @@
 import numpy as np
 from sklearn.preprocessing import MinMaxScaler
 from sklearn.base import TransformerMixin
-from typing import Tuple, Union, Callable
+from typing import List, Tuple, Union, Callable
 from pytseg.seg import cut, segmentize, segment_stationarity
 
 def normalize_multi(X: np.ndarray, t: Union[np.ndarray,None],
@@ -48,7 +48,7 @@ def normalize_multi(X: np.ndarray, t: Union[np.ndarray,None],
     # return results
     return X, t
 
-def cut_multi(X: np.ndarray, alpha: float=.95, l0: float=3) -> list[np.ndarray]:      
+def cut_multi(X: np.ndarray, alpha: float=.95, l0: float=3) -> List[np.ndarray]:      
     """
     Cut a multivariate time series, see ``seg.cut``.
 
@@ -64,7 +64,7 @@ def cut_multi(X: np.ndarray, alpha: float=.95, l0: float=3) -> list[np.ndarray]:
 
     Returns
     -------
-    S : list[np.ndarray]
+    S : List[np.ndarray]
         List of arrays of segment indices for ``X``.
 
     """
@@ -72,7 +72,7 @@ def cut_multi(X: np.ndarray, alpha: float=.95, l0: float=3) -> list[np.ndarray]:
     S = [cut(x.T, alpha, l0) for x in X.T]
     return S
 
-def segmentize_multi(A: np.ndarray, S: list[np.ndarray]) -> list[list[np.ndarray]]:    
+def segmentize_multi(A: np.ndarray, S: List[np.ndarray]) -> List[List[np.ndarray]]:    
     """
     Get list of array segments from segment index list, see ``seg.segmentize``.
 
@@ -80,20 +80,20 @@ def segmentize_multi(A: np.ndarray, S: list[np.ndarray]) -> list[list[np.ndarray
     ----------
     A : np.ndarray
         Arrays to segment: (n_arrays, n_elements).
-    S : list[np.ndarray]
+    S : List[np.ndarray]
         List of arrays of segment indices for ``A`` (from ``cut_multi``).
 
     Returns
     -------
-    A_seg : list[list[np.ndarray]]
+    A_seg : List[List[np.ndarray]]
         List of array segments (as list of results from ``seg.segmentize``).
     """
     
     A_seg = [segmentize(a, s) for a,s in zip(A, S)]
     return A_seg   
 
-def joint_labels_multi(t: np.ndarray, S: list[np.ndarray],
-                       labels_multi: list[np.ndarray],
+def joint_labels_multi(t: np.ndarray, S: List[np.ndarray],
+                       labels_multi: List[np.ndarray],
                        joint_label_fun: Callable[[list],float]) -> Tuple[np.ndarray,np.ndarray]:
     """
     Join labels/segments from multiple time series into one label/segment 
@@ -103,9 +103,9 @@ def joint_labels_multi(t: np.ndarray, S: list[np.ndarray],
     ----------
     t : np.ndarray
         Time series time steps for each observation.
-    S : list[np.ndarray]
+    S : List[np.ndarray]
         List of arrays of segment indices for ``t`` (from ``cut_multi``).
-    labels_multi : list[np.ndarray]
+    labels_multi : List[np.ndarray]
         List of label arrays.
     joint_label_fun : Callable[[list],float]
         Function to join labels from multiple observations into one joint
@@ -154,7 +154,7 @@ def joint_labels_multi(t: np.ndarray, S: list[np.ndarray],
     return s_, l_
 
 def segment_stationarity_multi(X: np.ndarray,
-                               S: list[np.ndarray],
+                               S: List[np.ndarray],
                                t: Union[np.ndarray,None]=None,
                                threshold: float=.025) -> Tuple[np.ndarray,np.ndarray]:
     """
@@ -165,7 +165,7 @@ def segment_stationarity_multi(X: np.ndarray,
     X : np.ndarray
         Time series observations to cut. Array of shape 
         ``(n_observations, n_series)``.
-    S : list[np.ndarray]
+    S : List[np.ndarray]
         List of arrays of segment indices for ``X`` (from ``cut_multi``).
     t : Union[np.ndarray,None], optional
         Time series time steps for each observation. Array of shape 
