@@ -19,14 +19,17 @@ Tiny toolbox for time series segmentation.
 The toolbox presumes a (univariate or multivariate) time series, for example:
 
 .. image:: https://github.com/RaoulHeese/pytseg/docs/source/_static/plot1.png
+   :scale: 100 %
 
 Such a time series can then be segmented into distinguishable segments:
 
 .. image:: https://github.com/RaoulHeese/pytseg/docs/source/_static/plot2.png
+   :scale: 100 %
 
 And, finally, these segments can be assigned labels like stationarity:
 
 .. image:: https://github.com/RaoulHeese/pytseg/docs/source/_static/plot3.png
+   :scale: 100 %
 
 **Usage**
 
