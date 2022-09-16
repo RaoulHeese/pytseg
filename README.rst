@@ -16,6 +16,18 @@ Time series segmentation toolbox (pytseq)
 	
 Tiny toolbox for time series segmentation.
 
+The toolbox presumes a (univariate or multivariate) time series, for example:
+
+.. image:: https://github.com/RaoulHeese/pytseg/docs/source/_static/plot1.png
+
+Such a time series can then be segmented into distinguishable segments:
+
+.. image:: https://github.com/RaoulHeese/pytseg/docs/source/_static/plot2.png
+
+And, finally, these segments can be assigned labels like stationarity:
+
+.. image:: https://github.com/RaoulHeese/pytseg/docs/source/_static/plot3.png
+
 **Usage**
 
 Demo notebooks can be found in the "examples/" directory of this repository.
