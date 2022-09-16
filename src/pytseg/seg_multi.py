@@ -72,7 +72,7 @@ def cut_multi(X: np.ndarray, alpha: float=.95, l0: float=3) -> list[np.ndarray]:
     S = [cut(x.T, alpha, l0) for x in X.T]
     return S
 
-def segmentize_multi(A: np.ndarray, S: list[np.ndarray]) -> list[np.ndarray]:    
+def segmentize_multi(A: np.ndarray, S: list[np.ndarray]) -> list[list[np.ndarray]]:    
     """
     Get list of array segments from segment index list, see ``seg.segmentize``.
 
@@ -85,18 +85,16 @@ def segmentize_multi(A: np.ndarray, S: list[np.ndarray]) -> list[np.ndarray]:
 
     Returns
     -------
-    A_seg : np.ndarray
-        List of array segments.
+    A_seg : list[list[np.ndarray]]
+        List of array segments (as list of results from ``seg.segmentize``).
     """
     
     A_seg = [segmentize(a, s) for a,s in zip(A, S)]
     return A_seg   
 
-
-
 def joint_labels_multi(t: np.ndarray, S: list[np.ndarray],
                        labels_multi: list[np.ndarray],
-                       joint_label_fun: Callable[list,float]) -> Tuple[np.ndarray,np.ndarray]:
+                       joint_label_fun: Callable[[list],float]) -> Tuple[np.ndarray,np.ndarray]:
     """
     Join labels/segments from multiple time series into one label/segment 
     series.
@@ -109,7 +107,7 @@ def joint_labels_multi(t: np.ndarray, S: list[np.ndarray],
         List of arrays of segment indices for ``t`` (from ``cut_multi``).
     labels_multi : list[np.ndarray]
         List of label arrays.
-    joint_label_fun : Callable[list,float]
+    joint_label_fun : Callable[[list],float]
         Function to join labels from multiple observations into one joint
         label.
 
@@ -138,8 +136,8 @@ def joint_labels_multi(t: np.ndarray, S: list[np.ndarray],
         
     # extract segments and labels
     current_label = None
-    s = []
-    l = []
+    s: list = []
+    l: list = []
     for idx in range(labels.size):
         l_ = labels[idx]
         if current_label is None:
@@ -150,11 +148,10 @@ def joint_labels_multi(t: np.ndarray, S: list[np.ndarray],
             current_label = l_
         elif idx == labels.size-1:
             l.append(current_label)
-    s = np.array(s).astype(int)
-    l = np.array(l)
+    s_ = np.array(s).astype(int)
+    l_ = np.array(l)
             
-    return s, l
-
+    return s_, l_
 
 def segment_stationarity_multi(X: np.ndarray,
                                S: list[np.ndarray],

@@ -3,7 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib import cm
 from pytseg.seg import segmentize
-from typing import Union
+from typing import Union, Any
 
 def plot(x: np.ndarray,
          s: Union[np.ndarray,None]=None,
@@ -54,8 +54,8 @@ def plot(x: np.ndarray,
     if l is not None:
         assert s is not None
         num_labels = np.unique(l).size
-        cmap = cm.get_cmap(cmap)
-        c = {l_: cmap(l_/(num_labels-1)) for l_ in np.unique(l)}
+        cmap_obj = cm.get_cmap(cmap)
+        c = {l_: cmap_obj(l_/(num_labels-1)) for l_ in np.unique(l)}
 
     # plot
     if new_fig_:
@@ -125,10 +125,14 @@ def plot_multi(X: np.ndarray,
     None.
     """
     if S is None:
-        S = [None]*X.shape[0]
+        S_: list[Any] = [None]*X.shape[0]
+    else:
+        S_ = S.copy()
     if L is None:
-        L = [None]*X.shape[0] 
-    for idx, (x, s, l) in enumerate(zip(X.T, S, L)):
+        L_: list[Any] = [None]*X.shape[0] 
+    else:
+        L_ = L.copy()
+    for idx, (x, s, l) in enumerate(zip(X.T, S_, L_)):
         plot(x.T, s=s, t=t, l=l, 
              cmap=cmap,
              figure_kwarg_dict=figure_kwarg_dict,
