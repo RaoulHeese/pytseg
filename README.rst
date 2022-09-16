@@ -6,12 +6,12 @@ Time series segmentation toolbox (pytseq)
     :target: https://github.com/RaoulHeese/pytseg/actions/workflows/tests.yml
     :alt: GitHub Actions
 	
-.. image:: https://readthedocs.org/projects/pytseq/badge/?version=latest
-    :target: https://pytseq.readthedocs.io/en/latest/?badge=latest
-    :alt: Documentation	
+.. image:: https://readthedocs.org/projects/pytseg/badge/?version=latest
+    :target: https://pytseg.readthedocs.io/en/latest/?badge=latest
+    :alt: Documentation Status	
 	
 .. image:: https://img.shields.io/badge/license-MIT-lightgrey
-    :target: https://github.com/RaoulHeese/pytseq/blob/main/LICENSE
+    :target: https://github.com/RaoulHeese/pytseg/blob/main/LICENSE
     :alt: MIT License	
 	
 Tiny toolbox for time series segmentation.
@@ -19,17 +19,14 @@ Tiny toolbox for time series segmentation.
 The toolbox presumes a (univariate or multivariate) time series. For example, consider the following univariate time series:
 
 .. image:: https://github.com/RaoulHeese/pytseg/blob/main/docs/source/_static/plot1.png 
-   :scale: 100 %
 
 Such a time series can then be segmented into distinguishable segments using the toolbox:
 
 .. image:: https://github.com/RaoulHeese/pytseg/blob/main/docs/source/_static/plot2.png
-   :scale: 100 %
 
 All segments are marked in different colors in the plot. And, finally, these segments can be assigned labels like stationarity:
 
 .. image:: https://github.com/RaoulHeese/pytseg/blob/main/docs/source/_static/plot3.png
-   :scale: 100 %
    
 Green lines indicate stationary segments of the time series.
 
@@ -80,3 +77,5 @@ The implemented univariate time series segmentation closely follows:
            doi = {10.1103/PhysRevE.69.021108},
            url = {https://link.aps.org/doi/10.1103/PhysRevE.69.021108}
           }
+
+There is no affiliation with the authors of this article.
