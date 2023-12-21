@@ -89,3 +89,5 @@ The implemented univariate time series segmentation closely follows:
           }
 
 There is no affiliation with the authors of this article.
+
+*This project is currently not under development and is not actively maintained.*
