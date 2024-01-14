@@ -56,19 +56,6 @@ Demo notebooks can be found in the `demos/` directory of this repository.
 
 📖 **Citation**
 
-If you find this code useful in your research, please consider citing:
-
-.. code-block:: tex
-
-  @misc{pytseg2022,
-        author = {Raoul Heese},
-        title = {pytseg},
-        year = {2022},
-        publisher = {GitHub},
-        journal = {{GitHub} repository},
-        howpublished = {\url{https://github.com/RaoulHeese/pytseg}},
-       }
-
 The implemented univariate time series segmentation closely follows:
 
 .. code-block:: tex
